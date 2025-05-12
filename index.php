@@ -12,12 +12,10 @@ try {
     $phoneNumber = $_POST["phoneNumber"];
     $text        = $_POST["text"];
 
-    // Middleware
     $menu = new Menu($text, $sessionId, $phoneNumber, $conn);
     $text = $menu->middleWare($text);
     $textArray = explode("*", $text);
 
-    // Check if user exists
     $stmt = $conn->prepare("SELECT * FROM users WHERE phone_number = ?");
     $stmt->execute([$phoneNumber]);
     $user = $stmt->fetch();
